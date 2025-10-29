@@ -1,5 +1,9 @@
 name: "sast-scan"
 
+env:
+  OSSINDEX_USERNAME: ${{ secrets.OSSINDEX_USERNAME }}
+  OSSINDEX_TOKEN: ${{ secrets.OSSINDEX_TOKEN }}
+
 on:
   push:
     branches: [githubcicd]
@@ -26,6 +30,8 @@ jobs:
           unzip dependency-check-12.1.1-release.zip
 
       - name: Run scan with ODC
+#        run: |
+#          dependency-check/bin/dependency-check.sh --project "bitcoin" --nvdApiKey ${{ secrets.WORKSHOP6_NVD_API_KEY }} --out . --scan .
         run: |
           dependency-check/bin/dependency-check.sh --project "bitcoin" --nvdApiKey ${{ secrets.WORKSHOP6_NVD_API_KEY }} --out . --scan .
 
